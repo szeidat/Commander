@@ -1,0 +1,90 @@
+{
+   "manifest_version": 2,
+   "name": "Commander",
+   "author": "Sameer Zeidat",
+   "description": "Run browser actions using keyboard shortcuts",
+   "version": "0.1",
+   "icons": {
+      "16": "icons/icon_16.png",
+      "48": "icons/icon_48.png",
+      "128": "icons/icon_128.png"
+   },
+   "background": {
+      "scripts": [
+         "scripts/background.js"
+      ]
+   },
+   "content_scripts": [
+      {
+         "matches": [
+            "<all_urls>"
+         ],
+         "js": [
+            "scripts/content.js"
+         ],
+         "run_at": "document_end"
+      }
+   ],
+   "commands": {
+      "command-1": {
+         "description": "Action not defined"
+      },
+      "command-2": {
+         "description": "Action not defined"
+      },
+      "command-3": {
+         "description": "Action not defined"
+      },
+      "command-4": {
+         "description": "Action not defined"
+      },
+      "command-5": {
+         "description": "Action not defined"
+      },
+      "command-6": {
+         "description": "Action not defined"
+      },
+      "command-7": {
+         "description": "Action not defined"
+      },
+      "command-8": {
+         "description": "Action not defined"
+      },
+      "command-9": {
+         "description": "Action not defined"
+      },
+      "command-10": {
+         "description": "Action not defined"
+      },
+      "command-11": {
+         "description": "Action not defined"
+      },
+      "command-12": {
+         "description": "Action not defined"
+      },
+      "command-13": {
+         "description": "Action not defined"
+      },
+      "command-14": {
+         "description": "Action not defined"
+      },
+      "command-15": {
+         "description": "Action not defined"
+      }
+   },
+   "options_ui": {
+      "page": "options.html",
+      "browser_style": true
+   },
+   "permissions": [
+      "tabs",
+      "clipboardWrite",
+      "storage",
+      "<all_urls>"
+   ],
+   "browser_specific_settings": {
+      "gecko": {
+        "id": "{cee9d60f-a270-41e2-85df-bbd2c4ab87ca}"
+      }
+    }    
+}
