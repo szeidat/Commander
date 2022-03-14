@@ -3,22 +3,45 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles/options.css">
+    <link rel="stylesheet" href="css/options.css">
 </head>
 
 <body>
+
     <div class="section">
-        <div class="section-head">
-            <h1 class="section-title">Actions</h1>
-            <button class="section-button" id="save-actions" disabled="true">Save</button>
-            <button class="section-button" id="add-action">Add</button>
+        <div class="section-content">
+            <h1 class="section-title">Options</h1>
+            <button id="actions-export" class="section-button">Export</button>
+            <button id="actions-import" class="section-button">Import</button>
         </div>
-        <div class="section-label">
-            <span>Use this page to add and remove command actions. Use the extensions shortcut manager to configure keyboard shortcuts for commands.</span>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Commander shortcut</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input id="actions-shortcut" class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut (optional)" readonly>
         </div>
     </div>
 
-    <script src='scripts/options.js'></script>
+    <div class="section">
+        <div class="section-content">
+            <h1 class="section-title">Actions</h1>
+            <button id="actions-save" class="section-button" disabled="true">Save</button>
+            <div class="section-dropdown">
+                <button id="actions-add" class="section-button">Add</button>
+                <div id="actions-list" class="section-dropdown-list hidden" tabindex="0">
+                    <span class="section-dropdown-item active" data-action="capture-screenshot">Capture Screenshot</span>
+                    <span class="section-dropdown-item" data-action="copy-contents">Copy Contents</span>
+                    <span class="section-dropdown-item" data-action="trigger-event">Trigger Event</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='js/options.js'></script>
+
 </body>
 
 </html>

@@ -1,0 +1,127 @@
+body {
+  font: menu;
+  font-size: 13px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  cursor: default;
+  background-color: var(--color-10);
+  color: var(--color-02);
+}
+
+.section {
+  position: relative;
+  display: flex;
+  padding: 10px;
+  border-bottom: 1px solid var(--color-04);
+  word-break: break-word;
+  overflow: auto;
+}
+
+.section:last-of-type {
+  border-bottom: none;
+  height: 290px;
+  width: 600px;
+}
+
+.section-text {
+  font: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  background-color: inherit;
+  padding: 5px;
+  margin: 2px 4px;
+  appearance: none;
+  border: 1px solid;
+  border-color: var(--color-03);
+  color: inherit;
+  flex-grow: 1;
+}
+
+.section-text:focus {
+  outline-color: var(--color-06);
+  outline-offset: -1px;
+  outline-style: solid;
+  outline-width: 1px;
+}
+
+.section-list {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  flex-direction: column;
+}
+
+.section-item {
+  display: flex;
+  padding: 5px 12px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.section-item.hidden {
+  display: none;
+}
+
+.section-item:hover {
+  background-color: var(--color-05);
+}
+
+.section-item.active, .section-item.active:hover {
+  color: var(--color-01);
+  background-color: var(--color-06);
+}
+
+.section-item-badge {
+  font-size: 11px;
+  padding: 1px 5px;
+  margin: 1px;
+  border-radius: 5px;
+  background-color: var(--color-07);
+  white-space: nowrap;
+  box-shadow: 1px 1px 1px var(--color-03);
+  user-select: none;
+  pointer-events: none;
+}
+
+.section-item-text {
+  padding: 0 10px;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  pointer-events: none;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-01: rgba(255,255,255,1);
+    --color-02: rgba(0,0,0,1);
+    --color-03: rgba(158,158,160,1);
+    --color-04: rgba(215,215,219,1);
+    --color-05: rgba(0,97,224,0.2);
+    --color-06: rgba(0,97,224,1);
+    --color-07: rgba(207,207,216,.33);
+    --color-08: rgba(207,207,216,.66);
+    --color-09: rgba(207,207,216,1);
+    --color-10: rgba(249,249,250,1);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-01: rgba(0,0,0,1);
+    --color-02: rgba(255,255,255,1);
+    --color-03: rgba(249,249,250,.4);
+    --color-04: rgba(249,249,250,.2);
+    --color-05: rgba(0,221,255,0.2);
+    --color-06: rgba(0,221,255,1);
+    --color-07: rgba(91,91,102,.33);
+    --color-08: rgba(91,91,102,.66);
+    --color-09: rgba(91,91,102,1);
+    --color-10: rgba(35,34,43,1);
+  }
+}
