@@ -9,7 +9,19 @@ Actions currently available:
 
 Copies contents of an HTML element in the page, given its CSS selector, to the clipboard. It uses a range to select all contents of the first element that matches the selector. The element must be visible for its contents to be copied.
 
-### Capture Screenshot
+### Copy Source
+
+Copies source HTML of an HTML element in the page, given its CSS selector, to the clipboard. It copies the inner HTML text of the first element that matches the selector.
+
+### Copy Text
+
+Copies text contents of a HTML elements in the page, given their CSS selector, to the clipboard. It adds the delimiter specified as a separator, with newline as the default. Optionally, the text contents of each HTML element is run through the specified regular expression.
+
+### Open Location
+
+Opens the provided location URL address in a new tab. It can optionally replace the placeholder "{selected}", in the address provided, with the text currently selected in the page. It can also replace the placeholder "{element}", in the address provided, with the text contents of the first HTML element that matches the specified CSS selector.
+
+### Take Screenshot
 
 Captures a screenshot of an HTML element in the page, given its CSS selector, and saves the screenshot to the clipboard as a PNG image. The element must be visible. It uses the bounding rectangle of the first element that matches the selector for the screenshot.
 

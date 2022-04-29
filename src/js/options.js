@@ -5,9 +5,164 @@ const MAX_COMMANDS = 24;
 
 // Actions html elements
 const ACTIONS_HTML = {
-    'capture-screenshot': `
+    'copy-contents': `
         <div class="section-content">
-            <h1 class="section-title">Capture Screenshot</h1>
+            <h1 class="section-title">Copy Contents</h1>
+            <button class="section-button" name="remove-action">Remove</button>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Action description</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="action-description" value ="Page contents" placeholder="Type a description">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Keyboard shortcut (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut" readonly>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Source element</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="source-element" value ="body" placeholder="Type a CSS selector">
+        </div>`,
+    'copy-source': `
+        <div class="section-content">
+            <h1 class="section-title">Copy Source</h1>
+            <button class="section-button" name="remove-action">Remove</button>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Action description</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="action-description" value ="Page source" placeholder="Type a description">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Keyboard shortcut (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut" readonly>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Source element</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="source-element" value ="body" placeholder="Type a CSS selector">
+        </div>`,
+    'copy-text': `
+        <div class="section-content">
+            <h1 class="section-title">Copy Text</h1>
+            <button class="section-button" name="remove-action">Remove</button>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Action description</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="action-description" value ="Page text" placeholder="Type a description">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Keyboard shortcut (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut" readonly>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Source element</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="source-element" value ="body" placeholder="Type a CSS selector">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Delimiter (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="text-delimiter" value ="" placeholder="Type a delimiter">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Regular expression (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="regular-expression" value ="" placeholder="Type a regular expression">
+        </div>`,
+    'open-location': `
+        <div class="section-content">
+            <h1 class="section-title">Open Location</h1>
+            <button class="section-button" name="remove-action">Remove</button>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Action description</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="action-description" value ="Wikipedia site" placeholder="Type a description">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Keyboard shortcut (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut" readonly>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Location address</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="location-address" value ="wikipedia.org" placeholder="Type a location url address">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Address element (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="address-element" value ="" placeholder="Type a CSS selector">
+        </div>`,
+    'take-screenshot': `
+        <div class="section-content">
+            <h1 class="section-title">Take Screenshot</h1>
             <button class="section-button" name="remove-action">Remove</button>
         </div>
         <div class="section-content">
@@ -21,53 +176,21 @@ const ACTIONS_HTML = {
         </div>
         <div class="section-content">
             <div class="section-label">
-                <label>Keyboard shortcut</label>
+                <label>Keyboard shortcut (optional)</label>
                 <div class="section-error hidden">
                     <span class="section-error-message"></span>
                 </div>
             </div>
-            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut (optional)" readonly>
+            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut" readonly>
         </div>
         <div class="section-content">
             <div class="section-label">
-                <label>Element selector</label>
+                <label>Source element</label>
                 <div class="section-error hidden">
                     <span class="section-error-message"></span>
                 </div>
             </div>
-            <input class="section-text" type="text" name="element-selector" value ="body" placeholder="Type a selector">
-        </div>`,
-    'copy-contents': `
-        <div class="section-content">
-            <h1 class="section-title">Copy Contents</h1>
-            <button class="section-button" name="remove-action">Remove</button>
-        </div>
-        <div class="section-content">
-            <div class="section-label">
-                <label>Action description</label>
-                <div class="section-error hidden">
-                    <span class="section-error-message"></span>
-                </div>
-            </div>
-            <input class="section-text" type="text" name="action-description" value ="Page copy" placeholder="Type a description">
-        </div>
-        <div class="section-content">
-            <div class="section-label">
-                <label>Keyboard shortcut</label>
-                <div class="section-error hidden">
-                    <span class="section-error-message"></span>
-                </div>
-            </div>
-            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut (optional)" readonly>
-        </div>
-        <div class="section-content">
-            <div class="section-label">
-                <label>Element selector</label>
-                <div class="section-error hidden">
-                    <span class="section-error-message"></span>
-                </div>
-            </div>
-            <input class="section-text" type="text" name="element-selector" value ="body" placeholder="Type a selector">
+            <input class="section-text" type="text" name="source-element" value ="body" placeholder="Type a CSS selector">
         </div>`,
     'trigger-event': `
         <div class="section-content">
@@ -85,21 +208,21 @@ const ACTIONS_HTML = {
         </div>
         <div class="section-content">
             <div class="section-label">
-                <label>Keyboard shortcut</label>
+                <label>Keyboard shortcut (optional)</label>
                 <div class="section-error hidden">
                     <span class="section-error-message"></span>
                 </div>
             </div>
-            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut (optional)" readonly>
+            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut" readonly>
         </div>
         <div class="section-content">
             <div class="section-label">
-                <label>Element selector</label>
+                <label>Target element</label>
                 <div class="section-error hidden">
                     <span class="section-error-message"></span>
                 </div>
             </div>
-            <input class="section-text" type="text" name="element-selector" value ="body" placeholder="Type a selector">
+            <input class="section-text" type="text" name="target-element" value ="body" placeholder="Type a CSS selector">
         </div>
         <div class="section-content">
             <div class="section-label">
@@ -112,12 +235,12 @@ const ACTIONS_HTML = {
         </div>
         <div class="section-content">
             <div class="section-label">
-                <label>Event data</label>
+                <label>Event data (optional)</label>
                 <div class="section-error hidden">
                     <span class="section-error-message"></span>
                 </div>
             </div>
-            <input class="section-text" type="text" name="event-data" value ="" placeholder="Type a json string (optional)">
+            <input class="section-text" type="text" name="event-data" value ="" placeholder="Type a json string">
         </div>`
 }
 
@@ -259,9 +382,14 @@ function saveActions() {
         action.title = section.querySelector('.section-title').innerText;
         action.description = section.querySelector('input[name="action-description"]').value.trim();
         action.shortcut = section.querySelector('input[name="keyboard-shortcut"]').value;
-        if (section.querySelector('input[name="element-selector"]')) { action.selector = section.querySelector('input[name="element-selector"]').value.trim(); }
+        if (section.querySelector('input[name="source-element"]')) { action.selector = section.querySelector('input[name="source-element"]').value.trim(); }
+        if (section.querySelector('input[name="target-element"]')) { action.selector = section.querySelector('input[name="target-element"]').value.trim(); }
+        if (section.querySelector('input[name="address-element"]')) { action.selector = section.querySelector('input[name="address-element"]').value.trim(); }
+        if (section.querySelector('input[name="location-address"]')) { action.address = section.querySelector('input[name="location-address"]').value.trim(); }
         if (section.querySelector('input[name="event-name"]')) { action.event = section.querySelector('input[name="event-name"]').value.trim(); }
         if (section.querySelector('input[name="event-data"]')) { action.data = section.querySelector('input[name="event-data"]').value.trim(); }
+        if (section.querySelector('input[name="text-delimiter"]')) { action.delimiter = section.querySelector('input[name="text-delimiter"]').value.trim(); }
+        if (section.querySelector('input[name="regular-exression"]')) { action.regexp = section.querySelector('input[name="regular-exression"]').value.trim(); }
 
         // Set action command
         action.command = '';
@@ -449,21 +577,18 @@ function editShortcut(event) {
 function editProperty(event) {
     // Check action description
     if (event.target.name == 'action-description') {
-        if (!event.target.value.trim()) {
-            // Description empty
-            event.target.dataset.error = 'Action description is empty';
-        } else {
+        if (event.target.value.trim()) {
             // Description valid
             delete event.target.dataset.error;
+        } else {
+            // Description empty
+            event.target.dataset.error = 'Action description is empty';
         }
     }
 
     // Check element selector
-    if (event.target.name == 'element-selector') {
-        if (!event.target.value.trim()) {
-            // Selector empty
-            event.target.dataset.error = 'Element selector is empty';
-        } else {
+    if ((event.target.name == 'source-element') || (event.target.name == 'target-element')) {
+        if (event.target.value.trim()) {
             let div = document.createElement('div');
             try {
                 // Selector valid
@@ -475,17 +600,51 @@ function editProperty(event) {
             } finally {
                 div.remove();
             }
+        } else {
+            // Selector empty
+            event.target.dataset.error = 'Element selector is empty';
+        }
+    }
+
+    // Check optional element selector
+    if (event.target.name == 'address-element') {
+        if (event.target.value.trim()) {
+            let div = document.createElement('div');
+            try {
+                // Selector valid
+                div.querySelector(event.target.value);
+                delete event.target.dataset.error;
+            } catch {
+                // Syntax error
+                event.target.dataset.error = 'Element selector syntax is not valid';
+            } finally {
+                div.remove();
+            }
+        } else {
+            // Selector optional
+            delete event.target.dataset.error;
+        }
+    }
+
+    // Check location address
+    if (event.target.name == 'location-address') {
+        if (event.target.value.trim()) {
+            // Address valid
+            delete event.target.dataset.error;
+        } else {
+            // Address empty
+            event.target.dataset.error = 'Loction address is empty';
         }
     }
 
     // Check event name
     if (event.target.name == 'event-name') {
-        if (!event.target.value.trim()) {
-            // Name empty
-            event.target.dataset.error = 'Event name is empty';
-        } else {
+        if (event.target.value.trim()) {
             // Name valid
             delete event.target.dataset.error;
+        } else {
+            // Name empty
+            event.target.dataset.error = 'Event name is empty';
         }
     }
 
@@ -494,7 +653,7 @@ function editProperty(event) {
         if (event.target.value.trim()) {
             try {
                 // Data valid
-                JSON.parse(event.target.value);
+                JSON.parse(event.target.value.trim());
                 delete event.target.dataset.error;
             } catch {
                 // Syntax error
@@ -502,6 +661,34 @@ function editProperty(event) {
             }
         } else {
             // Data optional
+            delete event.target.dataset.error;
+        }
+    }
+
+    // Check text delimiter
+    if (event.target.name == 'text-delimiter') {
+        if (event.target.value.trim()) {
+            // Delimiter valid
+            delete event.target.dataset.error;
+        } else {
+            // Delimiter optional
+            delete event.target.dataset.error;
+        }
+    }
+
+    // Check regular expression
+    if (event.target.name == 'regular-expression') {
+        if (event.target.value.trim()) {
+            try {
+                // Regexp valid
+                new RegExp(event.target.value.trim());
+                delete event.target.dataset.error;
+            } catch {
+                // Syntax error
+                event.target.dataset.error = 'Regular expression syntax is not valid';
+            }
+        } else {
+            // Regexp optional
             delete event.target.dataset.error;
         }
     }
@@ -620,9 +807,14 @@ function loadOptions() {
                 // Update action elements
                 section.querySelector('input[name="action-description"]').value = action.description;
                 section.querySelector('input[name="keyboard-shortcut"]').value = action.shortcut;
-                if (section.querySelector('input[name="element-selector"]')) { section.querySelector('input[name="element-selector"]').value = action.selector; }
+                if (section.querySelector('input[name="source-element"]')) { section.querySelector('input[name="source-element"]').value = action.selector; }
+                if (section.querySelector('input[name="target-element"]')) { section.querySelector('input[name="target-element"]').value = action.selector; }
+                if (section.querySelector('input[name="address-element"]')) { section.querySelector('input[name="address-element"]').value = action.selector; }
+                if (section.querySelector('input[name="location-address"]')) { section.querySelector('input[name="location-address"]').value = action.address; }
                 if (section.querySelector('input[name="event-name"]')) { section.querySelector('input[name="event-name"]').value = action.event; }
                 if (section.querySelector('input[name="event-data"]')) { section.querySelector('input[name="event-data"]').value = action.data; }
+                if (section.querySelector('input[name="text-delimiter"]')) { section.querySelector('input[name="text-delimiter"]').value = action.delimiter; }
+                if (section.querySelector('input[name="regular-expression"]')) { section.querySelector('input[name="regular-expression"]').value = action.regexp; }
 
                 // Update action shortcut from browser
                 browser.commands.getAll().then((commands) => {

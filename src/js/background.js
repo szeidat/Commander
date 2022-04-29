@@ -1,11 +1,35 @@
 'use strict'
 
-// Capture screenshot
-function captureScreenshot(selector) {
+// Copy contents
+function copyContents(selector) {
+    browser.tabs.query({ active: true, currentWindow: true }, ([activeTab]) => {
+        if (activeTab) {
+            browser.tabs.sendMessage(activeTab.id, { name: 'copyContents', selector: selector });
+        }
+    });
+}
+
+// Copy source
+function copySource(selector) {
+
+}
+
+// Copy text
+function copyText(selector, delimiter, regexp) {
+
+}
+
+// Open location
+function openLocation(address, selector) {
+
+}
+
+// Take screenshot
+function takeScreenshot(selector) {
     browser.tabs.query({ active: true, currentWindow: true }, ([activeTab]) => {
         if (activeTab) {
             browser.tabs.sendMessage(activeTab.id, { name: 'getRectangle', selector: selector }).then((reply) => {
-                // Capture screenshot
+                // Take screenshot
                 browser.tabs.captureVisibleTab(null, { format: 'png', rect: reply }).then((data) => {
                     // Send to clipboard
                     fetch(browser.runtime.getURL(data))
@@ -13,15 +37,6 @@ function captureScreenshot(selector) {
                         .then(buffer => browser.clipboard.setImageData(buffer, 'png'));
                 });
             });
-        }
-    });
-}
-
-// Copy contents
-function copyContents(selector) {
-    browser.tabs.query({ active: true, currentWindow: true }, ([activeTab]) => {
-        if (activeTab) {
-            browser.tabs.sendMessage(activeTab.id, { name: 'copyContents', selector: selector });
         }
     });
 }
@@ -39,11 +54,20 @@ function triggerEvent(selector, event, data) {
 function runAction(action) {
     // Check action
     switch (action.name) {
-        case 'capture-screenshot':
-            captureScreenshot(action.selector);
-            break;
         case 'copy-contents':
             copyContents(action.selector);
+            break;
+        case 'copy-source':
+            copySource(action.selector);
+            break;
+        case 'copy-text':
+            copyText(action.selector, action.delimiter, action.regexp);
+            break;
+        case 'open-location':
+            openLocation(action.address, action.selector);
+            break;
+        case 'take-screenshot':
+            takeScreenshot(action.selector);
             break;
         case 'trigger-event':
             triggerEvent(action.selector, action.event, action.data);
