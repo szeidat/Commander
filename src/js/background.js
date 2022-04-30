@@ -9,19 +9,31 @@ function copyContents(selector) {
     });
 }
 
-// Copy source
-function copySource(selector) {
-
-}
-
 // Copy text
-function copyText(selector, delimiter, regexp) {
-
+function copyText(selector, delimiter, expression, replacement) {
+    browser.tabs.query({ active: true, currentWindow: true }, ([activeTab]) => {
+        if (activeTab) {
+            browser.tabs.sendMessage(activeTab.id, { name: 'copyText', selector: selector, delimiter: delimiter, expression: expression, replacement: replacement });
+        }
+    });
 }
 
 // Open location
-function openLocation(address, selector) {
-
+function openLocation(address, selector, expression, replacement) {
+    // Check address
+    if (/{sel}|{rsel}|{txt}|{rtxt}/.test(address)) {
+        browser.tabs.query({ active: true, currentWindow: true }, ([activeTab]) => {
+            if (activeTab) {
+                browser.tabs.sendMessage(activeTab.id, { name: 'replaceAddress', address: address, selector: selector, expression: expression, replacement: replacement }).then((reply) => {
+                    // Open window
+                    browser.windows.create({ url: reply });
+                });
+            }
+        });
+    } else {
+        // Open window
+        browser.windows.create({ url: address });
+    }
 }
 
 // Take screenshot
@@ -57,14 +69,11 @@ function runAction(action) {
         case 'copy-contents':
             copyContents(action.selector);
             break;
-        case 'copy-source':
-            copySource(action.selector);
-            break;
         case 'copy-text':
-            copyText(action.selector, action.delimiter, action.regexp);
+            copyText(action.selector, action.delimiter, action.expression, action.replacement);
             break;
         case 'open-location':
-            openLocation(action.address, action.selector);
+            openLocation(action.address, action.selector, action.expression, action.replacement);
             break;
         case 'take-screenshot':
             takeScreenshot(action.selector);

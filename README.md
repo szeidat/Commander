@@ -3,23 +3,24 @@ Firefox extension to run browser and web page actions.
 
 ## Actions
 
-Actions currently available:
+Available actions:
 
 ### Copy Contents
 
 Copies contents of an HTML element in the page, given its CSS selector, to the clipboard. It uses a range to select all contents of the first element that matches the selector. The element must be visible for its contents to be copied.
 
-### Copy Source
-
-Copies source HTML of an HTML element in the page, given its CSS selector, to the clipboard. It copies the inner HTML text of the first element that matches the selector.
-
 ### Copy Text
 
-Copies text contents of a HTML elements in the page, given their CSS selector, to the clipboard. It adds the delimiter specified as a separator, with newline as the default. Optionally, the text contents of each HTML element is run through the specified regular expression.
+Copies text contents of a HTML elements in the page, given their CSS selector, to the clipboard. It adds the delimiter specified as a separator between the text contents, with newline as the default separator. Optionally, a regexp match and replace can be performed on the text contents of each of the HTML elements, using the specified match expression and match replacement.
 
 ### Open Location
 
-Opens the provided location URL address in a new tab. It can optionally replace the placeholder "{selected}", in the address provided, with the text currently selected in the page. It can also replace the placeholder "{element}", in the address provided, with the text contents of the first HTML element that matches the specified CSS selector.
+Opens the specified location URL address in a new browser window. It can optionally perform the following address replacements:
+
+* Replace the placeholder "{sel}" with the text currently selected in the page
+* Replace the placeholder "{rsel}" with the text currently selected in the page, after performing a regexp match and replace on it using the specified match expression and match replacement
+* Replace the placeholder "{txt}" with the text contents of the first HTML element that matches the specified CSS selector
+* Replace the placeholder "{txt}" with the text contents of the first HTML element that matches the specified CSS selector, after performing a regexp match and replace on it using the specified match expression and match replacement
 
 ### Take Screenshot
 
@@ -41,7 +42,7 @@ Each action can have a keyboard shortcut assigned to it. These can be defined in
 
 ## Search
 
-Clicking the extension's icon displays a search dialog with a list of all defined actions. Start typing to search for an action then press Enter to run it. Use the up and down arrow keys to navigate the list.
+Clicking the extension's icon displays a search dialog with a list of all defined actions. Click the desired action from the list, or start typing to search for an action then press Enter to run it. Use the up and down arrow keys to navigate the list.
 
 ![Search](/doc/search.jpg?raw=true)
 

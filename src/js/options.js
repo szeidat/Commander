@@ -37,38 +37,6 @@ const ACTIONS_HTML = {
             </div>
             <input class="section-text" type="text" name="source-element" value ="body" placeholder="Type a CSS selector">
         </div>`,
-    'copy-source': `
-        <div class="section-content">
-            <h1 class="section-title">Copy Source</h1>
-            <button class="section-button" name="remove-action">Remove</button>
-        </div>
-        <div class="section-content">
-            <div class="section-label">
-                <label>Action description</label>
-                <div class="section-error hidden">
-                    <span class="section-error-message"></span>
-                </div>
-            </div>
-            <input class="section-text" type="text" name="action-description" value ="Page source" placeholder="Type a description">
-        </div>
-        <div class="section-content">
-            <div class="section-label">
-                <label>Keyboard shortcut (optional)</label>
-                <div class="section-error hidden">
-                    <span class="section-error-message"></span>
-                </div>
-            </div>
-            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut" readonly>
-        </div>
-        <div class="section-content">
-            <div class="section-label">
-                <label>Source element</label>
-                <div class="section-error hidden">
-                    <span class="section-error-message"></span>
-                </div>
-            </div>
-            <input class="section-text" type="text" name="source-element" value ="body" placeholder="Type a CSS selector">
-        </div>`,
     'copy-text': `
         <div class="section-content">
             <h1 class="section-title">Copy Text</h1>
@@ -112,12 +80,21 @@ const ACTIONS_HTML = {
         </div>
         <div class="section-content">
             <div class="section-label">
-                <label>Regular expression (optional)</label>
+                <label>Match expression (optional)</label>
                 <div class="section-error hidden">
                     <span class="section-error-message"></span>
                 </div>
             </div>
-            <input class="section-text" type="text" name="regular-expression" value ="" placeholder="Type a regular expression">
+            <input class="section-text" type="text" name="match-expression" value ="" placeholder="Type a regular expression">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Match replacement (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="match-replacement" value ="" placeholder="Type a replacement text">
         </div>`,
     'open-location': `
         <div class="section-content">
@@ -159,6 +136,24 @@ const ACTIONS_HTML = {
                 </div>
             </div>
             <input class="section-text" type="text" name="address-element" value ="" placeholder="Type a CSS selector">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Match expression (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="match-expression" value ="" placeholder="Type a regular expression">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Match replacement (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="match-replacement" value ="" placeholder="Type a replacement text">
         </div>`,
     'take-screenshot': `
         <div class="section-content">
@@ -389,7 +384,8 @@ function saveActions() {
         if (section.querySelector('input[name="event-name"]')) { action.event = section.querySelector('input[name="event-name"]').value.trim(); }
         if (section.querySelector('input[name="event-data"]')) { action.data = section.querySelector('input[name="event-data"]').value.trim(); }
         if (section.querySelector('input[name="text-delimiter"]')) { action.delimiter = section.querySelector('input[name="text-delimiter"]').value.trim(); }
-        if (section.querySelector('input[name="regular-exression"]')) { action.regexp = section.querySelector('input[name="regular-exression"]').value.trim(); }
+        if (section.querySelector('input[name="match-expression"]')) { action.expression = section.querySelector('input[name="match-expression"]').value.trim(); }
+        if (section.querySelector('input[name="match-replacement"]')) { action.replacement = section.querySelector('input[name="match-replacement"]').value.trim(); }
 
         // Set action command
         action.command = '';
@@ -665,19 +661,8 @@ function editProperty(event) {
         }
     }
 
-    // Check text delimiter
-    if (event.target.name == 'text-delimiter') {
-        if (event.target.value.trim()) {
-            // Delimiter valid
-            delete event.target.dataset.error;
-        } else {
-            // Delimiter optional
-            delete event.target.dataset.error;
-        }
-    }
-
-    // Check regular expression
-    if (event.target.name == 'regular-expression') {
+    // Check match expression
+    if (event.target.name == 'match-expression') {
         if (event.target.value.trim()) {
             try {
                 // Regexp valid
@@ -814,7 +799,8 @@ function loadOptions() {
                 if (section.querySelector('input[name="event-name"]')) { section.querySelector('input[name="event-name"]').value = action.event; }
                 if (section.querySelector('input[name="event-data"]')) { section.querySelector('input[name="event-data"]').value = action.data; }
                 if (section.querySelector('input[name="text-delimiter"]')) { section.querySelector('input[name="text-delimiter"]').value = action.delimiter; }
-                if (section.querySelector('input[name="regular-expression"]')) { section.querySelector('input[name="regular-expression"]').value = action.regexp; }
+                if (section.querySelector('input[name="match-expression"]')) { section.querySelector('input[name="match-expression"]').value = action.expression; }
+                if (section.querySelector('input[name="match-replacement"]')) { section.querySelector('input[name="match-replacement"]').value = action.replacement; }
 
                 // Update action shortcut from browser
                 browser.commands.getAll().then((commands) => {
