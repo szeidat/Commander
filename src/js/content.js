@@ -2,7 +2,11 @@
 
 // Find element
 function findElement(selector, document) {
+    // Find in document
     let element = document.querySelector(selector);
+    element.window = window;
+
+    // Find in frames
     if (!element) {
         let frames = document.getElementsByTagName('iframe');
         for (let frame of frames) {
@@ -21,7 +25,10 @@ function findElement(selector, document) {
 
 // Find elements
 function findElements(selector, document) {
+    // Find in document
     let elements = document.querySelectorAll(selector);
+
+    // Find in frames
     if (!Array.isArray(elements) || !elements.length) {
         let frames = document.getElementsByTagName('iframe');
         for (let frame of frames) {
