@@ -4,7 +4,7 @@
 function findElement(selector, document) {
     // Find in document
     let element = document.querySelector(selector);
-    element.window = window;
+    if (element) element.window = window;
 
     // Find in frames
     if (!element) {
@@ -12,7 +12,7 @@ function findElement(selector, document) {
         for (let frame of frames) {
             if (frame.contentWindow.document) {
                 element = findElement(selector, frame.contentWindow.document);
-                if (element) {
+                if (element) {                
                     element.window = frame.contentWindow;
                     break;
                 }
@@ -70,7 +70,7 @@ function copyContents(selector) {
 function copyText(selector, delimiter, expression, replacement) {
     // Find elements
     let elements = findElements(selector, document);
-    let regexp = new RegExp(expression);
+    let regexp = new RegExp(expression, 'g');
     let textlist = [];
     for (let element of elements) textlist.push(element.innerText.replace(regexp, replacement));
 
@@ -105,26 +105,26 @@ function replaceAddress(address, selector, expression, replacement) {
 
     // Replace using selection
     if (/{sel}/.test(address)) {
-        replaced = address.replace(/{sel}/, window.getSelection().toString());
+        replaced = address.replace(/{sel}/g, window.getSelection().toString());
     }
 
     // Replace using selection and regexp
     if (/{rsel}/.test(address)) {
-        let regexp = new RegExp(expression);
-        replaced = address.replace(/{rsel}/, window.getSelection().toString().replace(regexp, replacement));
+        let regexp = new RegExp(expression, 'g');
+        replaced = address.replace(/{rsel}/g, window.getSelection().toString().replace(regexp, replacement));
     }
 
     // Replace using element
     if (/{txt}/.test(address)) {
         let element = findElement(selector, document);
-        replaced = address.replace(/{txt}/, element.innerText);
+        replaced = address.replace(/{txt}/g, element.innerText);
     }
 
     // Replace using element and regexp
     if (/{rtxt}/.test(address)) {
         let element = findElement(selector, document);
-        let regexp = new RegExp(expression);
-        replaced = address.replace(/{rtxt}/, element.innerText.replace(regexp, replacement));
+        let regexp = new RegExp(expression, 'g');
+        replaced = address.replace(/{rtxt}/g, element.innerText.replace(regexp, replacement));
     }
 
     return replaced;
