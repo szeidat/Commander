@@ -26,14 +26,15 @@ function findElement(selector, document) {
 // Find elements
 function findElements(selector, document) {
     // Find in document
-    let elements = document.querySelectorAll(selector);
+    let nodelist = document.querySelectorAll(selector);
+    let elements = Array.apply(null, nodelist);
 
     // Find in frames
     if (!Array.isArray(elements) || !elements.length) {
         let frames = document.getElementsByTagName('iframe');
         for (let frame of frames) {
             if (frame.contentWindow.document) {
-                elements = findElement(selector, frame.contentWindow.document);
+                elements = findElements(selector, frame.contentWindow.document);
                 if (Array.isArray(elements) && elements.length) break;
             }
         }

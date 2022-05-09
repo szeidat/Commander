@@ -20,8 +20,8 @@ body {
 
 .section:last-of-type {
   border-bottom: none;
-  height: 290px;
-  width: 600px;
+  height: 500px;
+  width: 500px;
 }
 
 .section-text {
