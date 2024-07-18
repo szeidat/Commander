@@ -36,6 +36,25 @@ function openLocation(address, selector, expression, replacement) {
     }
 }
 
+// Send message
+function sendMessage(application, message, selector, expression, replacement) {
+    // Check message
+    console.log(message);
+    if (/{sel}|{rsel}|{txt}|{rtxt}/.test(message)) {
+        browser.tabs.query({ active: true, currentWindow: true }, ([activeTab]) => {
+            if (activeTab) {
+                browser.tabs.sendMessage(activeTab.id, { name: 'replaceMessage', message: message, selector: selector, expression: expression, replacement: replacement }).then((reply) => {
+                    // send message
+                    browser.runtime.sendNativeMessage(application, reply);
+                });
+            }
+        });
+    } else {
+        // send message
+        browser.runtime.sendNativeMessage(application, message);
+    }
+}
+
 // Take screenshot
 function takeScreenshot(selector) {
     browser.tabs.query({ active: true, currentWindow: true }, ([activeTab]) => {
@@ -74,6 +93,9 @@ function runAction(action) {
             break;
         case 'open-location':
             openLocation(action.address, action.selector, action.expression, action.replacement);
+            break;
+        case 'send-message':
+            sendMessage(action.application, action.message, action.selector, action.expression, action.replacement);
             break;
         case 'take-screenshot':
             takeScreenshot(action.selector);

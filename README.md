@@ -11,11 +11,20 @@ Copies contents of an HTML element in the page, given its CSS selector, to the c
 
 ### Copy Text
 
-Copies text contents of a HTML elements in the page, given their CSS selector, to the clipboard. It adds the delimiter specified as a separator between the text contents, with newline as the default separator. Optionally, a regexp match and replace can be performed on the text contents of each of the HTML elements, using the specified match expression and match replacement.
+Copies text contents of HTML elements in the page, given their CSS selector, to the clipboard. It adds the delimiter specified as a separator between the text contents, with newline as the default separator. Optionally, a regexp match and replace can be performed on the text contents of each of the HTML elements, using the specified match expression and match replacement.
 
 ### Open Location
 
 Opens the specified location URL address in a new browser window. It can optionally perform the following address replacements:
+
+* Replace the placeholder "{sel}" with the text currently selected in the page
+* Replace the placeholder "{rsel}" with the text currently selected in the page, after performing a regexp match and replace on it using the specified match expression and match replacement
+* Replace the placeholder "{txt}" with the text contents of the first HTML element that matches the specified CSS selector
+* Replace the placeholder "{txt}" with the text contents of the first HTML element that matches the specified CSS selector, after performing a regexp match and replace on it using the specified match expression and match replacement
+
+### Send Message
+
+Sends the specified message to a registered native application. It can optionally perform the following message replacements:
 
 * Replace the placeholder "{sel}" with the text currently selected in the page
 * Replace the placeholder "{rsel}" with the text currently selected in the page, after performing a regexp match and replace on it using the specified match expression and match replacement
@@ -32,7 +41,7 @@ Dispatches an event to an HTML element in the page, given its CSS selector. Only
 
 ## Usage
 
-Add to Firefox, then open the extension's options page. Defined required actions, then save.
+Add to Firefox, then open the extension's options page. Define required actions, then save.
 
 ![Actions](/doc/actions.jpg?raw=true)
 

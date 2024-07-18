@@ -131,6 +131,37 @@ function replaceAddress(address, selector, expression, replacement) {
     return replaced;
 }
 
+// Replace message
+function replaceMessage(message, selector, expression, replacement) {
+    let replaced = message;
+
+    // Replace using selection
+    if (/{sel}/.test(message)) {
+        replaced = message.replace(/{sel}/g, window.getSelection().toString());
+    }
+
+    // Replace using selection and regexp
+    if (/{rsel}/.test(message)) {
+        let regexp = new RegExp(expression, 'g');
+        replaced = message.replace(/{rsel}/g, window.getSelection().toString().replace(regexp, replacement));
+    }
+
+    // Replace using element
+    if (/{txt}/.test(message)) {
+        let element = findElement(selector, document);
+        replaced = message.replace(/{txt}/g, element.innerText);
+    }
+
+    // Replace using element and regexp
+    if (/{rtxt}/.test(message)) {
+        let element = findElement(selector, document);
+        let regexp = new RegExp(expression, 'g');
+        replaced = message.replace(/{rtxt}/g, element.innerText.replace(regexp, replacement));
+    }
+
+    return replaced;
+}
+
 // Handle background messages
 browser.runtime.onMessage.addListener((message) => {
     // Handle received message
@@ -149,6 +180,9 @@ browser.runtime.onMessage.addListener((message) => {
             return Promise.resolve();
         case 'replaceAddress':
             let url = replaceAddress(message.address, message.selector, message.expression, message.replacement);
+            return Promise.resolve(url);
+        case 'replaceMessage':
+            let txt = replaceMessage(message.message, message.selector, message.expression, message.replacement);
             return Promise.resolve(url);
     }
 });

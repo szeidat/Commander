@@ -155,6 +155,74 @@ const ACTIONS_HTML = {
             </div>
             <input class="section-text" type="text" name="match-replacement" value ="" placeholder="Type a replacement text">
         </div>`,
+    'send-message': `
+        <div class="section-content">
+            <h1 class="section-title">Send Message</h1>
+            <button class="section-button" name="remove-action">Remove</button>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Action description</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="action-description" value ="Contact application" placeholder="Type a description">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Keyboard shortcut (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="keyboard-shortcut" value ="" placeholder="Type a shortcut" readonly>
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Application name</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="application-name" value ="custom-application" placeholder="Type a registered application name">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Message contents</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="message-contents" value ="sample message" placeholder="Type a message">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Address element (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="address-element" value ="" placeholder="Type a CSS selector">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Match expression (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="match-expression" value ="" placeholder="Type a regular expression">
+        </div>
+        <div class="section-content">
+            <div class="section-label">
+                <label>Match replacement (optional)</label>
+                <div class="section-error hidden">
+                    <span class="section-error-message"></span>
+                </div>
+            </div>
+            <input class="section-text" type="text" name="match-replacement" value ="" placeholder="Type a replacement text">
+        </div>`,
     'take-screenshot': `
         <div class="section-content">
             <h1 class="section-title">Take Screenshot</h1>
@@ -381,6 +449,8 @@ function saveActions() {
         if (section.querySelector('input[name="target-element"]')) { action.selector = section.querySelector('input[name="target-element"]').value.trim(); }
         if (section.querySelector('input[name="address-element"]')) { action.selector = section.querySelector('input[name="address-element"]').value.trim(); }
         if (section.querySelector('input[name="location-address"]')) { action.address = section.querySelector('input[name="location-address"]').value.trim(); }
+        if (section.querySelector('input[name="application-name"]')) { action.application = section.querySelector('input[name="application-name"]').value.trim(); }
+        if (section.querySelector('input[name="message-contents"]')) { action.message = section.querySelector('input[name="message-contents"]').value.trim(); }
         if (section.querySelector('input[name="event-name"]')) { action.event = section.querySelector('input[name="event-name"]').value.trim(); }
         if (section.querySelector('input[name="event-data"]')) { action.data = section.querySelector('input[name="event-data"]').value.trim(); }
         if (section.querySelector('input[name="text-delimiter"]')) { action.delimiter = section.querySelector('input[name="text-delimiter"]').value.trim(); }
@@ -633,6 +703,28 @@ function editProperty(event) {
         }
     }
 
+    // Check application name
+    if (event.target.name == 'application-name') {
+        if (event.target.value.trim()) {
+            // Application valid
+            delete event.target.dataset.error;
+        } else {
+            // Application empty
+            event.target.dataset.error = 'Application name is empty';
+        }
+    }
+
+    // Check message contents
+    if (event.target.name == 'message-contents') {
+        if (event.target.value.trim()) {
+            // Message valid
+            delete event.target.dataset.error;
+        } else {
+            // Message empty
+            event.target.dataset.error = 'Message is empty';
+        }
+    }
+
     // Check event name
     if (event.target.name == 'event-name') {
         if (event.target.value.trim()) {
@@ -796,6 +888,8 @@ function loadOptions() {
                 if (section.querySelector('input[name="target-element"]')) { section.querySelector('input[name="target-element"]').value = action.selector; }
                 if (section.querySelector('input[name="address-element"]')) { section.querySelector('input[name="address-element"]').value = action.selector; }
                 if (section.querySelector('input[name="location-address"]')) { section.querySelector('input[name="location-address"]').value = action.address; }
+                if (section.querySelector('input[name="application-name"]')) { section.querySelector('input[name="application-name"]').value = action.application; }
+                if (section.querySelector('input[name="message-contents"]')) { section.querySelector('input[name="message-contents"]').value = action.message; }
                 if (section.querySelector('input[name="event-name"]')) { section.querySelector('input[name="event-name"]').value = action.event; }
                 if (section.querySelector('input[name="event-data"]')) { section.querySelector('input[name="event-data"]').value = action.data; }
                 if (section.querySelector('input[name="text-delimiter"]')) { section.querySelector('input[name="text-delimiter"]').value = action.delimiter; }
