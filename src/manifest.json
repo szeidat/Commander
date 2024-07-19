@@ -3,7 +3,7 @@
    "name": "Commander",
    "author": "Sameer Zeidat",
    "description": "Run browser and web page actions",
-   "version": "0.5.1",
+   "version": "0.5.4",
    "icons": {
       "16": "img/commander_16_color.png",
       "48": "img/commander_48_color.png",

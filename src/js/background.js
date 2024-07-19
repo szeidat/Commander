@@ -39,19 +39,24 @@ function openLocation(address, selector, expression, replacement) {
 // Send message
 function sendMessage(application, message, selector, expression, replacement) {
     // Check message
-    console.log(message);
     if (/{sel}|{rsel}|{txt}|{rtxt}/.test(message)) {
         browser.tabs.query({ active: true, currentWindow: true }, ([activeTab]) => {
             if (activeTab) {
                 browser.tabs.sendMessage(activeTab.id, { name: 'replaceMessage', message: message, selector: selector, expression: expression, replacement: replacement }).then((reply) => {
                     // send message
-                    browser.runtime.sendNativeMessage(application, reply);
+                    browser.runtime.sendNativeMessage(application, reply).then(
+                      response => console.log(`Success: ${response}`),
+                      error => console.log(`Failure: ${error}`),
+                    );
                 });
             }
         });
     } else {
         // send message
-        browser.runtime.sendNativeMessage(application, message);
+        browser.runtime.sendNativeMessage(application, message).then(
+          response => console.log(`Success: ${response}`),
+          error => console.log(`Failure: ${error}`),
+        );
     }
 }
 

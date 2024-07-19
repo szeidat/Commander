@@ -183,6 +183,6 @@ browser.runtime.onMessage.addListener((message) => {
             return Promise.resolve(url);
         case 'replaceMessage':
             let txt = replaceMessage(message.message, message.selector, message.expression, message.replacement);
-            return Promise.resolve(url);
+            return Promise.resolve(txt);
     }
 });
